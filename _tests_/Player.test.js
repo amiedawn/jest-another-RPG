@@ -1,13 +1,8 @@
-const { TestScheduler } = require('jest');
-const Potion = require('../lib/Potion');
+const Player = require('../lib/Player.js');
+const Potion = require('../lib/Potion.js');
 
-jest.mock('../lib/Potion');
+jest.mock('../lib/Potion.js');
 
-console.log(new Potion());
-
-const Player = require('../lib/Player');
-
-// test that players have a name, 3 number properties, and an inventory
 test('creates a player object', () => {
   const player = new Player('Dave');
 
@@ -15,12 +10,10 @@ test('creates a player object', () => {
   expect(player.health).toEqual(expect.any(Number));
   expect(player.strength).toEqual(expect.any(Number));
   expect(player.agility).toEqual(expect.any(Number));
-  expect(player.inventory).toEqual(
-    expect.arrayContaining([expect.any(Object)])
-  );
+
+  expect(player.inventory).toEqual(expect.arrayContaining([expect.any(Object)]));
 });
 
-// check that player.getStats() returns an object with 4 specific properties
 test("gets player's stats as an object", () => {
   const player = new Player('Dave');
 
@@ -33,21 +26,19 @@ test("gets player's stats as an object", () => {
 test('gets inventory from player or returns false', () => {
   const player = new Player('Dave');
 
-  expect (player.getInventory()).toEqual(expect.any(Array));
+  expect(player.getInventory()).toEqual(expect.any(Array));
 
   player.inventory = [];
 
   expect(player.getInventory()).toEqual(false);
 });
 
-// test to get information about the player's health
 test("gets player's health value", () => {
   const player = new Player('Dave');
 
   expect(player.getHealth()).toEqual(expect.stringContaining(player.health.toString()));
-})
+});
 
-// method to check if the player is alive
 test('checks if player is alive or not', () => {
   const player = new Player('Dave');
 
@@ -58,7 +49,6 @@ test('checks if player is alive or not', () => {
   expect(player.isAlive()).toBeFalsy();
 });
 
-// method to see if the correct amount of health is being subtracted from the Player health property
 test("subtracts from player's health", () => {
   const player = new Player('Dave');
   const oldHealth = player.health;
